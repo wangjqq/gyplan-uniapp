@@ -1,0 +1,58 @@
+{
+  "pages": [{
+      "path": "pages/Home/Home",
+      "style": {}
+
+    }, {
+      "path": "pages/GYStation/GYStation",
+      "style": {}
+
+    }, {
+      "path": "pages/GyKnowledge/GyKnowledge",
+      "style": {}
+
+    }, {
+      "path": "pages/My/My",
+      "style": {}
+
+    },
+    {
+      "path": "pages/My/Contact/Contact",
+      "style": {}
+
+    }
+  ],
+  "tabBar": {
+    "selectedColor": "#C00000",
+    "list": [{
+      "pagePath": "pages/Home/Home",
+      "text": "首页",
+      "iconPath": "static/tab_icons/home.png",
+      "selectedIconPath": "static/tab_icons/home-active.png"
+    }, {
+      "pagePath": "pages/GYStation/GYStation",
+      "text": "工作站",
+      "iconPath": "static/tab_icons/station.png",
+      "selectedIconPath": "static/tab_icons/station-active.png"
+    }, {
+      "pagePath": "pages/GyKnowledge/GyKnowledge",
+      "text": "知识站",
+      "iconPath": "static/tab_icons/knowledge.png",
+      "selectedIconPath": "static/tab_icons/knowledge-active.png"
+    }, {
+      "pagePath": "pages/My/My",
+      "text": "我的",
+      "iconPath": "static/tab_icons/my.png",
+      "selectedIconPath": "static/tab_icons/my-active.png"
+    }]
+  },
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "顾渊计划",
+    "navigationBarBackgroundColor": "#007AFF",
+    "backgroundColor": "#FFFFFF",
+    "app-plus": {
+      "background": "#efeff4"
+    }
+  }
+}
