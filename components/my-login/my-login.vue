@@ -78,10 +78,6 @@
       },
       // 登录
       login() {
-        // let formData = new FormData()
-        // formData.append('username', formData.username)
-        // formData.append('password', formData.password)
-        // formData.append('captcha', formData.code)
         uni.request({
           url: '/user/login',
           data: this.formData,
@@ -109,11 +105,6 @@
                 }
               })
             }
-          },
-          header: {
-            from: 'wxmp',
-            'cookie': uni.getStorageSync("sessionid"), //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
-            'content-type': 'application/x-www-form-urlencoded' //解决请求不到数据
           }
         })
       },
@@ -152,7 +143,7 @@
       // 去联系页面
       toContact() {
         uni.navigateTo({
-          url: '/pages/My/Contact/Contact'
+          url: '/subpkg/Contact/Contact'
         })
       }
     }

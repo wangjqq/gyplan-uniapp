@@ -33,26 +33,25 @@
     mixins: [isLoginMix],
     data() {
       return {
-        structureListData: {}
+        structureListData: {},
+
       };
     },
     onShow() {
       this.getAllImsList()
+
     },
     methods: {
+      // 获取所有元器件列表
       getAllImsList() {
         uni.request({
           url: '/api/knowledge/getDataStructureList',
           success: (res) => {
-            console.log(res.data);
             this.structureListData = res.data.data
-          },
-          header: {
-            from: 'wxmp',
-            'cookie': uni.getStorageSync("sessionid") //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
           }
         })
-      }
+      },
+
     }
   }
 </script>

@@ -1,27 +1,53 @@
 {
   "pages": [{
-      "path": "pages/Home/Home",
-      "style": {}
+    "path": "pages/Home/Home",
+    "style": {}
+
+  }, {
+    "path": "pages/GYStation/GYStation",
+    "style": {}
+
+  }, {
+    "path": "pages/GyKnowledge/GyKnowledge",
+    "style": {}
+
+  }, {
+    "path": "pages/My/My",
+    "style": {}
+
+  }],
+  "subPackages": [{
+    "root": "subpkg",
+    "pages": [{
+      "path": "imsAddForm/imsAddForm",
+      "style": {
+        "enablePullDownRefresh": false,
+        "navigationBarTitleText": "添加元器件"
+      }
 
     }, {
-      "path": "pages/GYStation/GYStation",
-      "style": {}
+      "path": "UpdateInfo/UpdateInfo",
+      "style": {
+        "enablePullDownRefresh": false
+      }
 
     }, {
-      "path": "pages/GyKnowledge/GyKnowledge",
-      "style": {}
+      "path": "Contact/Contact",
+      "style": {
+        "enablePullDownRefresh": false
+      }
 
-    }, {
-      "path": "pages/My/My",
-      "style": {}
-
-    },
-    {
-      "path": "pages/My/Contact/Contact",
-      "style": {}
-
-    }
-  ],
+    }    ,{
+                    "path" : "tianqi/tianqi",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+  }],
   "tabBar": {
     "selectedColor": "#C00000",
     "list": [{
