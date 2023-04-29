@@ -65,8 +65,14 @@
     methods: {
       // 获取所有元器件列表
       getAllImsList() {
+        const {
+          id
+        } = uni.getStorageSync("userInfo")
         uni.request({
           url: '/api/ims/getAllImsList',
+          data: {
+            id
+          },
           success: (res) => {
             this.imsList = res.data.data
           }
@@ -74,10 +80,17 @@
       },
       // 获取元器件分类列表
       getTypeList() {
+        const {
+          id
+        } = uni.getStorageSync("userInfo")
         uni.request({
           url: '/api/ims/getTypeList',
+          data: {
+            id,
+          },
           success: (res) => {
             res.data.data.forEach((element) => {
+
               element.value = element.id
               element.text = element.type_name
             })
@@ -103,6 +116,9 @@
       },
       // 级联选择器选择完成时触发
       chooesTypeChange(val) {
+        const {
+          id
+        } = uni.getStorageSync("userInfo")
         if (val.detail.value.length == 0) {
           this.getAllImsList()
           return
@@ -110,6 +126,7 @@
         uni.request({
           url: '/api/ims/getImsListByType',
           data: {
+            id,
             type_id: val.detail.value.at(-1).value
           },
           success: (res) => {

@@ -2,17 +2,21 @@
   <view class="from">
     <uni-forms :modelValue=" formData" border>
       <uni-forms-item label=" " label-width="0" name="name">
-        <uni-easyinput prefixIcon="person" :inputBorder="false" type="text" v-model="formData.username"
-          placeholder="请输入帐号" />
+        <uni-easyinput prefixIcon="person" :inputBorder="false" type="text" v-model="formData.phoneNumber"
+          placeholder="请输入手机号" />
       </uni-forms-item>
       <uni-forms-item label=" " label-width="0" name="name">
-        <uni-easyinput prefixIcon="locked-filled" :inputBorder="false" type="password" v-model="formData.password"
-          placeholder="请输入密码" />
+        <view class="duanxin">
+          <uni-easyinput prefixIcon="locked-filled" :inputBorder="false" type="password" v-model="formData.phoneCode"
+            placeholder="请输入短信验证码" />
+          <button size="mini" @click="getMsg()">{{content}}</button>
+        </view>
+
       </uni-forms-item>
       <uni-forms-item label=" " label-width="0" name="name">
         <view style="display: flex;flex-direction: row;justify-content: space-between;">
           <view class="inputt" style="width: 50%;">
-            <uni-easyinput prefixIcon="info" :inputBorder="false" type="text" v-model="formData.capdata"
+            <uni-easyinput prefixIcon="info" :inputBorder="false" type="text" v-model="formData.captcha"
               placeholder="请输入验证码" style="width:50%;height: 50px;display: block;" />
           </view>
 
@@ -39,11 +43,14 @@
     name: "my-login",
     data() {
       return {
+        duanxinFlag: false,
+        content: '发送验证码',
+        delayNum: 60,
         picSrc: '',
         formData: {
-          username: '',
-          password: '',
-          capdata: ''
+          phoneNumber: '',
+          phoneCode: '',
+          captcha: ''
         },
         isLogin: true
       };
@@ -51,17 +58,69 @@
     watch: {
       isLogin() {
         this.formData = {
-          username: '',
-          password: '',
-          capdata: ''
+          phoneNumber: '',
+          phoneCode: '',
+          captcha: ''
         }
         this.getCaptacha()
       }
     },
     created() {
-      this.getCaptacha()
+      this.getCaptacha(),
+        uni.authorize({
+          scope: 'scope.userInfo',
+          success() {}
+        })
     },
     methods: {
+      //  获取短信验证码
+      getMsg() {
+        if (!/^1[3456789]\d{9}$/.test(this.formData.phoneNumber)) {
+          uni.showToast({
+            title: '请输入格式正确的手机号!',
+            icon: 'none',
+            duration: 2000
+          });
+          return false
+        }
+        if (this.duanxinFlag === true) {
+          return
+        }
+        this.duanxinFlag = true
+        this.content = this.delayNum + 's后发送'
+        let clock = setInterval(() => {
+          this.delayNum--
+          this.content = this.delayNum + 's后发送'
+          if (this.delayNum < 0) {
+            clearInterval(clock)
+            this.content = '发送验证码'
+            this.delayNum = 60
+            this.duanxinFlag = false
+          }
+        }, 1000)
+
+        uni.request({
+          url: '/user/aliyun/sendSms',
+          method: 'POST',
+          data: {
+            phoneNumber: this.formData.phoneNumber
+          },
+          success: (res) => {
+            console.log(res);
+            uni.showToast({
+              title: res.data.message,
+              icon: 'none',
+              duration: 8000
+            });
+          },
+          header: {
+            from: 'wxmp',
+            'content-type': 'application/json',
+            'cookie': uni.getStorageSync(
+              "sessionid") //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
+          }
+        })
+      },
       // 获取验证码
       getCaptacha() {
         uni.request({
@@ -82,8 +141,13 @@
           url: '/user/login',
           data: this.formData,
           method: 'POST',
+          header: {
+            from: 'wxmp',
+            'content-type': 'application/json',
+            'cookie': uni.getStorageSync(
+              "sessionid") //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
+          },
           success: (res) => {
-            console.log(res);
             if (res.data.status == 200) {
               uni.showToast({
                 title: '登陆成功',
@@ -153,5 +217,9 @@
 <style lang="scss">
   .from {
     margin: 10px 20px;
+  }
+
+  .duanxin {
+    display: flex;
   }
 </style>

@@ -7,7 +7,7 @@ export default {
       uni.request({
         url: '/user/islogin',
         success: (res) => {
-          if (res.data.status == 500) { //没有登陆
+          if (res.data.status != 200) { //没有登陆
 
             uni.setStorageSync('login', 'no');
             if (res.header['Set-Cookie']) {

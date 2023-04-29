@@ -31,6 +31,19 @@
       logout() {
         uni.setStorageSync('login', 'no');
         uni.removeStorageSync('sessionid');
+        uni.request({
+          url: '/user/logout',
+          method: 'POST',
+          success: (res) => {
+            uni.setStorageSync('login', 'no');
+          },
+          header: {
+            from: 'wxmp',
+            'content-type': 'application/json',
+            'cookie': uni.getStorageSync(
+              "sessionid") //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
+          }
+        })
         uni.showToast({
           title: '退出登录成功!',
           duration: 1500,

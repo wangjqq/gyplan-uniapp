@@ -3,6 +3,7 @@ uni.addInterceptor('request', {
     // request 触发前拼接 url 
     if (args.url != "http://weather.cma.cn/api/now/57074" && args.url != "https://www.tianqi.com/yichuan1/") {
       args.url = 'https://api.wangjingqi.top' + args.url
+      // args.url = 'https://localhost:3007' + args.url
     }
 
     args.header = {

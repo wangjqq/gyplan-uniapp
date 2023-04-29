@@ -18,7 +18,7 @@
       </image>
 
     </view>
-    <text @click="gridChange(2)">天气</text>
+    <!-- <text @click="gridChange(2)">天气</text> -->
   </view>
 </template>
 
@@ -32,7 +32,7 @@
     },
     onLoad() {
       this.setSession()
-      this.getUpdateInfo()
+      // this.getUpdateInfo()
     },
     methods: {
       // 获取更新信息
@@ -42,6 +42,10 @@
           data: {
             location: 1,
             auth: 1
+          },
+          header: {
+            from: 'wxmp',
+            'cookie': uni.getStorageSync("sessionid") //读取sessionid,当作cookie传入后台将PHPSESSID做session_id使用
           },
           success: (res) => {
             this.updateInfo = res.data.data.at(-1).date.split('T')[0] + '更新日志: ' + res.data.data.at(-1).info
@@ -70,7 +74,8 @@
         uni.request({
           url: '/user/islogin',
           success: (res) => {
-            if (res.data.status == 500) { //没有登陆
+            console.log(res);
+            if (res.data.status != 200) { //没有登陆
               uni.setStorageSync('login', 'no');
               if (res.header['Set-Cookie']) {
                 uni.removeStorageSync('sessionid'); //每次登录时清除缓存
@@ -78,7 +83,9 @@
               }
             } else {
               uni.setStorageSync('login', 'yes');
+              uni.setStorageSync('userInfo', res.data.data[0]);
             }
+            this.getUpdateInfo()
 
           }
         })
