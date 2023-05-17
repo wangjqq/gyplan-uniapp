@@ -28,13 +28,19 @@
     </uni-forms>
     <button @click="login" v-if="isLogin">登录</button>
     <button @click="register" v-else>注册</button>
-    <view class="toRegister" style="display: flex;justify-content: center;color: #acadaf;">
+    <!-- <view class="toRegister" style="display: flex;justify-content: center;color: #acadaf;">
       <text @click="isLogin=false" v-if="isLogin">注册</text>
       <text @click="isLogin=true" v-else>已有帐号,去登陆</text>
       <text>/</text>
       <text @click="toContact">忘记密码</text>
+    </view> -->
+    <view class="xieyi" style="display: flex;justify-content: center;color: #555666;">
+      <text> 登录即代表同意
+        <text style="text-decoration: underline;" @click="termsOfService()">服务条款</text>
+        和
+        <text style="text-decoration: underline;" @click="privacyAgreement()">隐私协议</text></text>
     </view>
-    <!-- <button @click="toRegister">注册</button> -->
+    <!-- <button @click=" toRegister">注册</button> -->
   </view>
 </template>
 
@@ -73,6 +79,17 @@
         })
     },
     methods: {
+      privacyAgreement() {
+        uni.navigateTo({
+          url: '/subpkg/privacyAgreement/privacyAgreement'
+        })
+      },
+      termsOfService() {
+        uni.navigateTo({
+          url: '/subpkg/termsOfService/termsOfService'
+        })
+      },
+
       //  获取短信验证码
       getMsg() {
         if (!/^1[3456789]\d{9}$/.test(this.formData.phoneNumber)) {

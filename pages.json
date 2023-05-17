@@ -38,7 +38,14 @@
       }
 
     }, {
-      "path": "tianqi/tianqi",
+      "path": "termsOfService/termsOfService",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+
+    }, {
+      "path": "privacyAgreement/privacyAgreement",
       "style": {
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false

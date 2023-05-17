@@ -30,6 +30,7 @@ export default {
             })
           } else {
             uni.setStorageSync('login', 'yes');
+            uni.setStorageSync('userInfo', res.data.data[0]);
           }
 
         },
